@@ -42,16 +42,15 @@
 		   
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script>
+
 		xhro = new XMLHttpRequest();
 		xhro.onreadystatechange = function(){
-		//alert(xhro.readyState);
-		if ((xhro.readyState==4)){
-			document.getElementById("korBaliozko").innerHTML= xhro.responseText;}
+			if ((xhro.readyState==4)){
+				document.getElementById("korBaliozko").innerHTML= xhro.responseText;
+			}
 		}
 		
 		function korreoaEgiaztatu(email){
-			document.getElementById("korBaliozko").innerHTML= "";
-			document.getElementById("passBaliozko").innerHTML= "";
 			document.getElementById("korBaliozko").innerHTML= xhro.responseText;
 
 			var g1 = document.getElementById("g1").value;
@@ -62,17 +61,23 @@
 			xhro.send(emaila);
 		}
 		
+		xhro2 = new XMLHttpRequest();
+		xhro2.onreadystatechange = function(){
+			if ((xhro2.readyState==4)){
+				//document.getElementById("korBaliozko").innerHTML= xhro.responseText;
+				document.getElementById("passBaliozko").innerHTML= xhro2.responseText;
+			}
+		}
+		
 		function pasahitzaEgiaztatu(pass){
-			document.getElementById("korBaliozko").innerHTML= "";
-			document.getElementById("passBaliozko").innerHTML= "";
-			document.getElementById("passBaliozko").innerHTML= xhro.responseText;
+			document.getElementById("passBaliozko").innerHTML= xhro2.responseText;
 
 			var g4 = document.getElementById("g4").value;
 			pasahitza="pass="+g4;
 			
-			xhro.open("POST","nusoapPass.php", true);
-			xhro.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-			xhro.send(pasahitza);
+			xhro2.open("POST","nusoapPass.php", true);
+			xhro2.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			xhro2.send(pasahitza);
 		}
 		
 		function Balioztatu(){
@@ -100,7 +105,7 @@
 			var izenDeituraMota = new RegExp(/^[A-Z]{1}[a-z]+\s[A-Z]{1}[a-z]+(\s)*$/);
 			if (!izenDeituraMota.test(g2)){ alert("Izena eta Abizenaren lehen hitza letra larriz"); return false;}
 			
-			if (diva == 'Korreoa ez matrikulatuta dago Web Sistemetan'){alert("Ezin zara erregistratu Web Sistemetan matrikulatuta egon gabe"); return false;}
+			if (diva == 'Korreoa ez dago matrikulatuta Web Sistemetan, sartu beste bat'){alert("Ezin zara erregistratu Web Sistemetan matrikulatuta egon gabe"); return false;}
 			if (diva2 == 'Pasahitza tipiko da eta baliogabea da, ez da segurua'){alert("Ezin duzu pasahitza hori erabili"); return false;}
 		}
 
@@ -138,6 +143,7 @@
 				</tr>
 			</table>
 			<div id = "korBaliozko" name ="korBaliozko" align="left">Zure korreoa matrikulatuta dago Web Sistemetan?</div>
+			<br/>
 			<div id = "passBaliozko" name ="passBaliozko" align="left"><div>
 		</form>
     </body>
